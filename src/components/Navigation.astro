@@ -2,13 +2,13 @@
 import { site } from '../config/site';
 
 const navLinks = [
-  { label: 'Beneficios', href: '#beneficios' },
-  { label: 'Catálogo', href: '#catalogo' },
-  { label: 'Instalación', href: '#instalacion' },
-  { label: 'Planes', href: '#planes' },
-  { label: 'Descarga', href: '#descarga' },
-  { label: 'Testimonios', href: '#testimonios' },
-  { label: 'Preguntas', href: '#faq' },
+  { label: 'Beneficios', href: '/#beneficios' },
+  { label: 'Catálogo', href: '/#catalogo' },
+  { label: 'Instalación', href: '/#instalacion' },
+  { label: 'Planes', href: '/#planes' },
+  { label: 'Descarga', href: '/#descarga' },
+  { label: 'Testimonios', href: '/#testimonios' },
+  { label: 'Preguntas', href: '/#faq' },
 ];
 ---
 
@@ -88,10 +88,16 @@ const navLinks = [
 <script is:inline>
   (() => {
     const links = [...document.querySelectorAll('[data-nav-link]')];
+    if (window.location.pathname !== '/') return;
+
     const sectionIds = links
       .map((link) => link.getAttribute('href'))
-      .filter((href) => href && href.startsWith('#'))
-      .map((href) => href.slice(1));
+      .map((href) => {
+        if (!href) return null;
+        const hashIndex = href.indexOf('#');
+        return hashIndex === -1 ? null : href.slice(hashIndex + 1);
+      })
+      .filter(Boolean);
 
     const sections = sectionIds
       .map((id) => document.getElementById(id))
@@ -101,7 +107,10 @@ const navLinks = [
 
     const setActive = (id) => {
       links.forEach((link) => {
-        const isActive = link.getAttribute('href') === `#${id}`;
+        const href = link.getAttribute('href') || '';
+        const hashIndex = href.indexOf('#');
+        const currentHash = hashIndex === -1 ? '' : href.slice(hashIndex + 1);
+        const isActive = currentHash === id;
         link.classList.toggle('nav-link-active', isActive);
       });
     };
