@@ -1,0 +1,106 @@
+---
+import { site } from '../config/site';
+
+const steps = [
+  {
+    num: '01',
+    title: 'Elige tu plan',
+    desc: 'Escríbenos por WhatsApp, te asesoramos y confirmas el plan que mejor te convenga. El pago es rápido y seguro.',
+    image: '/images/step-plan.webp',
+  },
+  {
+    num: '02',
+    title: 'Instala la app',
+    desc: 'Te enviamos el enlace de descarga y te guiamos paso a paso. En tu celular, tablet, TV Box o Fire Stick.',
+    image: '/images/step-install.webp',
+  },
+  {
+    num: '03',
+    title: 'Disfruta',
+    desc: 'En menos de 10 minutos ya estás viendo todo. Canales en vivo, películas, series y deportes. Así de fácil.',
+    image: '/images/step-enjoy.webp',
+  },
+];
+
+const devices = [
+  { name: 'Fire Stick', src: '/images/logo-firestick.webp' },
+  { name: 'TV Box', src: '/images/logo-tvbox.webp' },
+  { name: 'Google TV', src: '/images/logo-googletv.webp' },
+  { name: 'Xiaomi', src: '/images/logo-xiaomi.webp' },
+  { name: 'Android', src: '/images/logo-android.webp' },
+];
+---
+
+<section id="instalacion" class="relative py-16 md:py-24">
+  <div class="pointer-events-none absolute inset-0 -z-10">
+    <div class="absolute right-0 top-14 h-56 w-56 rounded-full bg-rose-600/10 blur-3xl"></div>
+  </div>
+  <div class="container-main surface-panel px-4 py-10 md:px-8 md:py-12">
+    <!-- Encabezado -->
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="text-xs font-bold uppercase tracking-[0.2em] text-rose-400">Instalación</span>
+      <h2 class="mt-3 font-display text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+        Empieza en minutos
+      </h2>
+      <p class="mt-4 text-base text-zinc-100">
+        No necesitas ser técnico. Te guiamos en todo el proceso. Desde la compra hasta que estés viendo tu primer canal.
+      </p>
+    </div>
+
+    <div class="line-accent mx-auto mt-8 w-24"></div>
+
+    <!-- 3 Pasos -->
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      {steps.map((step) => (
+        <article class="card-dark-hover overflow-hidden">
+          <div class="relative h-44 overflow-hidden">
+            <img src={step.image} alt={step.title} class="h-full w-full object-cover" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-800/90 to-transparent"></div>
+            <span class="absolute bottom-3 right-4 font-display text-4xl font-bold text-white/10">{step.num}</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-lg font-bold text-white">{step.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-100/95">{step.desc}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Dispositivos compatibles -->
+    <div class="mt-14">
+      <h3 class="text-center font-display text-xl font-bold text-white">Dispositivos Compatibles</h3>
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+        {devices.map((d) => (
+          <div class="card-dark flex items-center gap-2.5 px-4 py-3">
+            <img src={d.src} alt={d.name} class="h-6 w-auto" loading="lazy" />
+            <span class="text-sm font-medium text-zinc-100">{d.name}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="mx-auto mt-6 max-w-2xl rounded-xl border border-amber-500/20 bg-amber-500/5 px-5 py-4">
+        <p class="text-sm text-amber-200/80">
+          <strong class="font-semibold text-amber-300">Nota importante:</strong> Algunos Smart TV usan sistemas cerrados y requieren un dispositivo externo.
+          La solución es conectar un <strong>TV Box</strong> o <strong>Fire Stick</strong> por HDMI. Es fácil de instalar y te da acceso completo a Flujo TV en 4K.
+        </p>
+      </div>
+
+      <p class="mt-4 text-center text-xs text-zinc-200/85">
+        Flujo TV funciona exclusivamente en Android y dispositivos compatibles como TV Box, Fire Stick, Google TV y Xiaomi Stick.
+      </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-10 text-center">
+      <a
+        href={`${site.whatsappLink}?text=${encodeURIComponent('Hola, necesito ayuda para instalar Flujo TV en mi dispositivo')}`}
+        class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/12 px-6 py-3 text-sm font-semibold text-white transition-all hover:border-white/40 hover:bg-white/20"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        ¿Necesitas ayuda con la instalación? Escríbenos
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import Benefits from '../components/Benefits.astro';
+import Catalogo from '../components/Catalogo.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Pricing from '../components/Pricing.astro';
+import Download from '../components/Download.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
+import MobileFloatingCTA from '../components/MobileFloatingCTA.astro';
+import { site, faqItems, plans } from '../config/site';
+
+const pageTitle = 'Flujo TV Premium Latinoamérica | Canales en Vivo, Series y Deportes 4K';
+const pageDescription =
+  'Flujo TV Premium para Latinoamérica: más de 3,000 canales en vivo, películas, series y deportes en 4K. Compatible con Android, TV Box, Fire Stick, Google TV y Xiaomi Stick.';
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Flujo TV Premium Latinoamérica',
+  serviceType: 'Servicio Premium para Latinoamérica',
+  areaServed: ['AR', 'BO', 'CL', 'CO', 'EC', 'MX', 'PE', 'UY', 'PY', 'VE'],
+  provider: {
+    '@type': 'Organization',
+    name: 'Flujo TV',
+    url: site.url,
+  },
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'USD',
+    lowPrice: Math.min(...plans.map((plan) => plan.price)),
+    highPrice: Math.max(...plans.map((plan) => plan.price)),
+    offerCount: plans.length,
+    offers: plans.map((plan) => ({
+      '@type': 'Offer',
+      priceCurrency: 'USD',
+      price: plan.price,
+      name: `Plan ${plan.name}`,
+      availability: 'https://schema.org/InStock',
+      url: `${site.url}/#planes`,
+    })),
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <Navigation />
+
+  <main class="space-y-0">
+    <Hero />
+    <Benefits />
+    <Catalogo />
+    <HowItWorks />
+    <Pricing />
+    <Download />
+    <Testimonials />
+    <FAQ />
+  </main>
+
+  <Footer />
+  <MobileFloatingCTA />
+</Layout>

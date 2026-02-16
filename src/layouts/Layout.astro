@@ -1,0 +1,235 @@
+---
+import { site } from '../config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `Flujo TV Premium — ${site.tagline}`,
+  description = site.description,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+const metaPixelId = import.meta.env.PUBLIC_META_PIXEL_ID;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow" />
+    <link rel="alternate" hreflang="es-419" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Flujo TV Premium" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${site.url}/images/banner-compatibles1.webp`} />
+    <meta property="og:locale" content="es_419" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${site.url}/images/banner-compatibles1.webp`} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="/images/logo_flujo.webp" />
+    <link rel="shortcut icon" href="/images/logo_flujo.webp" />
+    <link rel="apple-touch-icon" href="/images/logo_flujo.webp" />
+    <meta name="theme-color" content="#E11D48" />
+
+    <!-- Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: site.name,
+      url: site.url,
+      description: site.description,
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: `${site.url}/search?q={search_term_string}`,
+        'query-input': 'required name=search_term_string',
+      },
+    })} />
+
+    {gaMeasurementId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>
+        <script
+          is:inline
+          set:html={`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${gaMeasurementId}', { send_page_view: true });`}
+        />
+      </>
+    )}
+
+    {metaPixelId && (
+      <>
+        <script
+          is:inline
+          set:html={`!function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '${metaPixelId}');
+          fbq('track', 'PageView');`}
+        />
+        <noscript>
+          <img height="1" width="1" style="display:none"
+            src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`}
+          />
+        </noscript>
+      </>
+    )}
+  </head>
+
+  <body class="font-body text-zinc-50 antialiased selection:bg-rose-600/30 selection:text-white">
+    <slot />
+
+    <script is:inline>
+      (() => {
+        const pushEvent = (eventName, payload = {}) => {
+          const data = {
+            event: 'cta_click',
+            event_name: eventName,
+            page_path: window.location.pathname,
+            timestamp: Date.now(),
+            ...payload,
+          };
+
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push(data);
+
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'select_promotion', {
+              promotion_name: eventName,
+              creative_name: payload.section || 'unknown_section',
+              page_path: window.location.pathname,
+            });
+          }
+
+          if (typeof window.fbq === 'function') {
+            window.fbq('trackCustom', 'CTA_Click', {
+              event_name: eventName,
+              section: payload.section || 'unknown_section',
+              page_path: window.location.pathname,
+            });
+          }
+
+          window.dispatchEvent(new CustomEvent('flujo:cta-click', { detail: data }));
+        };
+
+        document.addEventListener('click', (event) => {
+          const target = event.target.closest('[data-cta-track]');
+          if (!target) return;
+
+          const eventName = target.getAttribute('data-cta-track') || 'unknown_cta';
+          const section = target.getAttribute('data-cta-section') || 'unknown_section';
+          pushEvent(eventName, { section });
+        });
+      })();
+    </script>
+
+    <style is:global>
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .container-main {
+        width: 100%;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+
+      @media (min-width: 768px) {
+        .container-main {
+          padding-left: 2rem;
+          padding-right: 2rem;
+        }
+      }
+
+      body {
+        background-color: #14161c;
+        background-image:
+          radial-gradient(1200px 800px at 4% -12%, rgba(225, 29, 72, 0.22), transparent 62%),
+          radial-gradient(950px 700px at 100% 0%, rgba(245, 158, 11, 0.18), transparent 60%),
+          radial-gradient(800px 520px at 50% 40%, rgba(255, 255, 255, 0.05), transparent 70%),
+          linear-gradient(180deg, #1a1d24 0%, #14161c 50%, #101218 100%);
+        background-attachment: fixed;
+      }
+
+      .card-dark {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(26, 29, 36, 0.82) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 1.25rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .card-dark-hover {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(24, 28, 35, 0.86) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 1.25rem;
+        transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      }
+
+      .card-dark-hover:hover {
+        border-color: rgba(251, 113, 133, 0.45);
+        box-shadow: 0 24px 60px -30px rgba(225, 29, 72, 0.6);
+        transform: translateY(-4px);
+      }
+
+      .surface-panel {
+        border-radius: 1.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(20, 23, 30, 0.82) 100%);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 24px 80px -42px rgba(17, 24, 39, 0.9);
+      }
+
+      .text-gradient {
+        background: linear-gradient(135deg, #F43F5E 0%, #F59E0B 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .glow-rose {
+        box-shadow: 0 0 60px 10px rgba(225, 29, 72, 0.12);
+      }
+
+      .line-accent {
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, #E11D48 50%, transparent 100%);
+      }
+    </style>
+  </body>
+</html>

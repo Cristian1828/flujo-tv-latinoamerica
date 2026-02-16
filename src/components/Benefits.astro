@@ -1,0 +1,84 @@
+---
+const benefits = [
+  {
+    icon: '📺',
+    title: 'Calidad 4K Real',
+    desc: 'Se ve nítido. Se escucha perfecto. Sin pixeleos ni caídas de resolución. Disfrutas cada detalle como si estuvieras en el cine.',
+    image: '/images/benefit-4k.webp',
+  },
+  {
+    icon: '⚡',
+    title: 'Cero Buffering',
+    desc: 'Servidores optimizados para Latinoamérica. Dale play y disfruta sin esperas, sin cargar, sin interrupciones.',
+    image: '/images/benefit-speed.webp',
+  },
+  {
+    icon: '📡',
+    title: '+3,000 Canales en Vivo',
+    desc: 'TV en vivo de todo el continente. Noticias, deportes, música, entretenimiento, infantil. Todo en un solo lugar.',
+    image: '/images/benefit-channels.webp',
+  },
+  {
+    icon: '👨‍👩‍👧‍👦',
+    title: '3 Pantallas Simultáneas',
+    desc: 'Comparte con tu familia. Cada uno ve lo suyo, al mismo tiempo. Tú en el celular, tu pareja en la tele, los niños en la tablet.',
+    image: '/images/benefit-screens.webp',
+  },
+  {
+    icon: '💬',
+    title: 'Soporte 24/7',
+    desc: '¿Algo no funciona? Te respondemos por WhatsApp en minutos. Sin bots, sin tickets eternos. Personas reales que te ayudan.',
+    image: '/images/benefit-support.webp',
+  },
+  {
+    icon: '🔓',
+    title: 'Sin Contratos',
+    desc: 'Pagas el tiempo que quieras. Un mes, tres, seis o un año. Sin permanencia, sin letra chica, sin costos ocultos.',
+    image: '/images/benefit-freedom.webp',
+  },
+];
+---
+
+<section id="beneficios" class="relative pb-16 pt-10 md:pb-24 md:pt-14">
+  <div class="pointer-events-none absolute inset-0 -z-10">
+    <div class="absolute left-0 top-10 h-56 w-56 rounded-full bg-rose-600/10 blur-3xl"></div>
+    <div class="absolute right-0 bottom-0 h-64 w-64 rounded-full bg-amber-500/10 blur-3xl"></div>
+  </div>
+  <div class="container-main surface-panel px-4 py-10 md:px-8 md:py-12">
+    <!-- Encabezado -->
+    <div class="mx-auto max-w-2xl text-center">
+      <span class="text-xs font-bold uppercase tracking-[0.2em] text-rose-400">¿Por qué Flujo TV?</span>
+      <h2 class="mt-3 font-display text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+        Todo lo que necesitas para disfrutar
+      </h2>
+      <p class="mt-4 text-base text-zinc-100">
+        Una sola app. Miles de canales. Calidad que se nota. Y un soporte que realmente responde.
+      </p>
+    </div>
+
+    <!-- Línea decorativa -->
+    <div class="line-accent mx-auto mt-8 w-24"></div>
+
+    <!-- Grid de beneficios -->
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {benefits.map((item) => (
+        <article class="group card-dark-hover overflow-hidden">
+          <div class="relative h-40 overflow-hidden">
+            <img
+              src={item.image}
+              alt={item.title}
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-800/95 via-dark-800/40 to-transparent"></div>
+            <span class="absolute bottom-3 left-4 text-2xl">{item.icon}</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-lg font-bold text-white">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-zinc-100/95">{item.desc}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

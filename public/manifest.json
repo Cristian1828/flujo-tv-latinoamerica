@@ -1,0 +1,27 @@
+{
+  "name": "Flujo TV Premium Latinoamérica",
+  "short_name": "Flujo TV",
+  "description": "Servicio premium para Latinoamérica con +3,000 canales en vivo, películas, series y deportes en 4K.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00D9FF",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/logo_flujo.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/logo_flujo.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["entertainment", "streaming", "television"],
+  "lang": "es",
+  "dir": "ltr"
+}

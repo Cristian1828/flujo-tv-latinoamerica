@@ -1,0 +1,135 @@
+---
+import { site, stats } from '../config/site';
+
+const heroDesktop = [
+  '/images/hero-desk-00.webp',
+  '/images/hero-desk-01.webp',
+  '/images/hero-desk-02.webp',
+  '/images/hero-desk-03.webp',
+  '/images/hero-desk-04.webp',
+];
+
+const heroMobile = [
+  '/images/hero-movil-00.webp',
+  '/images/hero-movil-01.webp',
+  '/images/hero-movil-02.webp',
+  '/images/hero-movil-03.webp',
+  '/images/hero-movil-04.webp',
+];
+---
+
+<section class="relative min-h-[100svh] overflow-hidden flex items-center">
+  <div class="absolute inset-0 md:hidden">
+    {heroMobile.map((src, index) => (
+      <div
+        class="hero-slide"
+        style={`background-image: url('${src}'); animation-delay: ${index * 5}s;`}
+      ></div>
+    ))}
+  </div>
+
+  <div class="absolute inset-0 hidden md:block">
+    {heroDesktop.map((src, index) => (
+      <div
+        class="hero-slide"
+        style={`background-image: url('${src}'); animation-delay: ${index * 5}s;`}
+      ></div>
+    ))}
+  </div>
+
+  <div class="absolute inset-0 bg-gradient-to-b from-slate-900/65 via-slate-900/45 to-slate-900/78"></div>
+  <div class="absolute inset-0 hidden lg:block bg-gradient-to-r from-slate-950/60 via-slate-900/40 to-slate-950/60"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(225,29,72,0.28),transparent_52%),radial-gradient(circle_at_85%_22%,rgba(245,158,11,0.2),transparent_54%)]"></div>
+
+  <div class="container-main relative z-10 pb-14 pt-20 md:pb-18 md:pt-28 lg:pb-20 lg:pt-32">
+    <div class="mx-auto max-w-3xl rounded-3xl border border-white/25 bg-slate-900/52 p-6 text-center shadow-[0_30px_90px_-35px_rgba(15,23,42,0.95)] backdrop-blur-md lg:p-8">
+      <div class="mb-6 flex justify-center">
+      <span class="inline-flex items-center gap-2 rounded-full border border-rose-300/45 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-rose-100 backdrop-blur-sm">
+        <span class="inline-block h-1.5 w-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+        Magis ahora es FLUJO TV
+      </span>
+      </div>
+
+      <h1 class="font-display text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl drop-shadow-lg">
+        Todo tu entretenimiento<br />
+        <span class="text-gradient">en una sola app</span>
+      </h1>
+
+      <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-zinc-100 sm:text-lg drop-shadow-md">
+        +3,000 canales en vivo, películas de estreno, series completas y deportes en 4K.
+        Sin contratos. Sin antenas. Descargas la app, activas y listo.
+      </p>
+
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a
+          href={`${site.whatsappLink}?text=${encodeURIComponent('Hola, quiero empezar con Flujo TV')}`}
+          data-cta-track="hero_whatsapp"
+          data-cta-section="hero"
+          class="inline-flex items-center gap-2 rounded-full bg-rose-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-rose-600/35 transition-all hover:-translate-y-0.5 hover:bg-rose-500 hover:shadow-2xl hover:shadow-rose-500/40 hover:scale-[1.02]"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.917.918l4.458-1.495A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.24 0-4.326-.724-6.022-1.955l-.42-.312-2.647.888.888-2.647-.312-.42A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Empezar Ahora
+        </a>
+        <a
+          href="#planes"
+          data-cta-track="hero_ver_planes"
+          data-cta-section="hero"
+          class="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/15 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/55 hover:bg-white/22"
+        >
+          Ver Planes
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4 md:mt-16">
+      {stats.map((stat) => (
+        <div class="rounded-xl border border-white/30 bg-white/14 px-5 py-4 text-center backdrop-blur-md shadow-[0_12px_38px_-28px_rgba(15,23,42,0.95)]">
+          <p class="font-display text-2xl font-bold text-white md:text-3xl">{stat.value}</p>
+          <p class="mt-1 text-xs font-medium uppercase tracking-wider text-zinc-100/90">{stat.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 animate-bounce md:block">
+    <svg class="h-6 w-6 text-white/70" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+  </div>
+</section>
+
+<style>
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.06);
+    animation: heroFade 25s infinite ease-in-out;
+  }
+
+  @keyframes heroFade {
+    0% {
+      opacity: 0;
+      transform: scale(1.08);
+    }
+    8% {
+      opacity: 1;
+      transform: scale(1.03);
+    }
+    18% {
+      opacity: 1;
+      transform: scale(1.01);
+    }
+    26% {
+      opacity: 0;
+      transform: scale(1.06);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.08);
+    }
+  }
+</style>

@@ -1,0 +1,146 @@
+---
+import { site } from '../config/site';
+
+const navLinks = [
+  { label: 'Beneficios', href: '#beneficios' },
+  { label: 'Catálogo', href: '#catalogo' },
+  { label: 'Instalación', href: '#instalacion' },
+  { label: 'Planes', href: '#planes' },
+  { label: 'Descarga', href: '#descarga' },
+  { label: 'Testimonios', href: '#testimonios' },
+  { label: 'Preguntas', href: '#faq' },
+];
+---
+
+<!-- Navegación principal -->
+<header
+  id="main-nav"
+  class="sticky top-0 z-50 border-b border-white/20 bg-slate-950/70 backdrop-blur-xl transition-all duration-300"
+>
+  <nav class="container-main flex items-center justify-between py-3.5">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-3" aria-label="Ir al inicio">
+      <img src="/images/logo_flujo.webp" alt="Flujo TV" class="h-8 w-auto" width="36" height="32" />
+      <div class="leading-none">
+        <p class="font-display text-base font-bold tracking-wide text-white">Flujo <span class="text-orange-400">TV</span></p>
+        <p class="mt-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-400">PREMIUM</p>
+      </div>
+    </a>
+
+    <div class="hidden items-center gap-8 md:flex">
+      <ul class="flex items-center gap-7">
+        {navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              data-nav-link
+              class="text-sm font-medium text-zinc-100/90 transition-colors hover:text-white"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <a
+        href={`${site.whatsappLink}?text=${encodeURIComponent('Hola, quiero contratar Flujo TV')}`}
+        class="rounded-full bg-rose-600 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-rose-500 hover:shadow-lg hover:shadow-rose-600/35"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Contratar Ahora
+      </a>
+    </div>
+
+    <details class="relative md:hidden">
+      <summary class="list-none rounded-xl border border-white/25 bg-white/10 p-2.5 text-white backdrop-blur-sm cursor-pointer">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </summary>
+
+      <div class="absolute right-0 mt-3 w-64 overflow-hidden rounded-2xl border border-white/20 bg-slate-900/95 p-3 shadow-2xl shadow-black/40 backdrop-blur-xl">
+        <ul class="space-y-1">
+          {navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                data-nav-link
+                class="block rounded-lg px-3 py-2 text-sm font-medium text-zinc-100 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <a
+          href={`${site.whatsappLink}?text=${encodeURIComponent('Hola, quiero contratar Flujo TV')}`}
+          class="mt-3 block rounded-full bg-rose-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-rose-500"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Contratar Ahora
+        </a>
+      </div>
+    </details>
+  </nav>
+</header>
+
+<script is:inline>
+  (() => {
+    const links = [...document.querySelectorAll('[data-nav-link]')];
+    const sectionIds = links
+      .map((link) => link.getAttribute('href'))
+      .filter((href) => href && href.startsWith('#'))
+      .map((href) => href.slice(1));
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (!sections.length || !links.length) return;
+
+    const setActive = (id) => {
+      links.forEach((link) => {
+        const isActive = link.getAttribute('href') === `#${id}`;
+        link.classList.toggle('nav-link-active', isActive);
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visible[0]?.target?.id) {
+          setActive(visible[0].target.id);
+        }
+      },
+      {
+        threshold: [0.2, 0.45, 0.65],
+        rootMargin: '-30% 0px -50% 0px',
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    setActive(sections[0].id);
+  })();
+</script>
+
+<style>
+  .nav-link-active {
+    color: #ffffff !important;
+    position: relative;
+  }
+
+  .nav-link-active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -8px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #f43f5e, #f59e0b);
+  }
+</style>

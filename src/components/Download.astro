@@ -1,0 +1,81 @@
+---
+import { site } from '../config/site';
+---
+
+<section id="descarga" class="relative py-16 md:py-24">
+  <div class="pointer-events-none absolute inset-0 -z-10">
+    <div class="absolute left-0 bottom-8 h-56 w-56 rounded-full bg-amber-500/10 blur-3xl"></div>
+  </div>
+  <div class="container-main surface-panel px-4 py-10 md:px-8 md:py-12">
+    <div class="grid items-center gap-8 lg:grid-cols-2">
+      <!-- Texto -->
+      <div>
+        <span class="text-xs font-bold uppercase tracking-[0.2em] text-amber-400">Descarga</span>
+        <h2 class="mt-3 font-display text-3xl font-bold text-white md:text-4xl">
+          ¿Listo para instalar?
+        </h2>
+        <p class="mt-4 text-base leading-relaxed text-zinc-100">
+          La instalación es guiada. Te acompañamos paso a paso por WhatsApp hasta que tu app esté funcionando perfectamente.
+          No necesitas conocimientos técnicos.
+        </p>
+
+        <!-- Dos opciones -->
+        <div class="mt-8 space-y-4">
+          <!-- Móvil / Tablet -->
+          <article class="card-dark-hover flex items-center gap-4 p-5">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-rose-600/10 text-2xl">📱</div>
+            <div class="flex-1">
+              <h3 class="font-display text-base font-bold text-white">Para Celular o Tablet</h3>
+              <p class="mt-1 text-sm text-zinc-100/95">Android 5.0 o superior. Se instala en segundos.</p>
+            </div>
+            <a
+              href={`${site.whatsappLink}?text=${encodeURIComponent('Hola, quiero la app de Flujo TV para mi celular/tablet Android')}`}
+              class="shrink-0 rounded-full bg-rose-600 px-4 py-2 text-xs font-bold text-white transition-all hover:bg-rose-500"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Solicitar
+            </a>
+          </article>
+
+          <!-- TV Box / Fire Stick -->
+          <article class="card-dark-hover flex items-center gap-4 p-5">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-2xl">🔥</div>
+            <div class="flex-1">
+              <h3 class="font-display text-base font-bold text-white">Para TV Box o Fire Stick</h3>
+              <p class="mt-1 text-sm text-zinc-100/95">Incluye Google TV y Xiaomi Stick. Instalación asistida.</p>
+            </div>
+            <a
+              href={`${site.whatsappLink}?text=${encodeURIComponent('Hola, quiero la app de Flujo TV para mi TV Box / Fire Stick')}`}
+              class="shrink-0 rounded-full bg-amber-500 px-4 py-2 text-xs font-bold text-dark-950 transition-all hover:bg-amber-400"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Solicitar
+            </a>
+          </article>
+        </div>
+
+        <!-- Código de instalación -->
+        <div class="mt-6 flex items-center gap-3 rounded-xl border border-white/20 bg-white/10 px-5 py-3">
+          <span class="text-xs font-medium text-zinc-100/85">Código de instalación:</span>
+          <code class="font-display text-lg font-bold tracking-widest text-white">888888</code>
+        </div>
+      </div>
+
+      <!-- Imagen -->
+      <div class="relative">
+        <img
+          src="/images/download-devices.webp"
+          alt="Dispositivos compatibles con Flujo TV: celular, tablet, TV Box y Fire Stick"
+          class="rounded-2xl border border-white/20 object-cover"
+          loading="lazy"
+        />
+        <div class="absolute -bottom-3 -right-3 rounded-xl border border-white/20 bg-slate-900/86 px-4 py-3 backdrop-blur-sm">
+          <p class="text-xs text-zinc-100/85">Instalación en</p>
+          <p class="font-display text-xl font-bold text-white">~10 min</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
